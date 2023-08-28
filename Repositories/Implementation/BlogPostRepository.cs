@@ -38,7 +38,12 @@ namespace AngularProject.Repositories.Implementation
 
         public async Task<IEnumerable<BlogPost>> GetAllAsync()
         {
-            return await dbContext.BlogPosts.ToListAsync();
+            return await dbContext.BlogPosts.Include(x => x.Categories).ToListAsync();
+        }
+
+        public async Task<BlogPost?> GetByIdAsync(Guid id)
+        {
+            return await dbContext.BlogPosts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         //public async Task<Category?> GetById(Guid id)

@@ -6,7 +6,7 @@ namespace AngularProject.Repositories.Interface
     {
         Task<BlogPost> CreateAsync(BlogPost blogPost);
         Task<IEnumerable<BlogPost>> GetAllAsync();
-        //Task<Category?> GetById(Guid id);
+        Task<BlogPost?> GetByIdAsync(Guid id);
         //Task<Category?> UpdateAsync(Category category);
         //Task<Category?> DeleteAsync(Guid id);
     }

@@ -59,7 +59,13 @@ namespace AngularProject.Controllers
                 IsVisible = blogPost.IsVisible,
                 Author = blogPost.Author,
                 UrlHandle = blogPost.UrlHandle,
-                PublishedDate = blogPost.PublishedDate
+                PublishedDate = blogPost.PublishedDate,
+                Categories = blogPost.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle
+                }).ToList()
             };
 
             return Ok(response);
@@ -76,6 +82,7 @@ namespace AngularProject.Controllers
             {
                 response.Add(new BlogPostDto
                 {
+                    Id = blogPost.Id,
                     Title = blogPost.Title,
                     ShortDescription = blogPost.ShortDescription,
                     Content = blogPost.Content,
@@ -83,11 +90,59 @@ namespace AngularProject.Controllers
                     IsVisible = blogPost.IsVisible,
                     Author = blogPost.Author,
                     UrlHandle = blogPost.UrlHandle,
-                    PublishedDate = blogPost.PublishedDate
+                    PublishedDate = blogPost.PublishedDate,
+                    Categories = blogPost.Categories.Select(x => new CategoryDto
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        UrlHandle = x.UrlHandle
+                    }).ToList()
                 });
             }
 
             return Ok(response);
+        }
+
+        // GET: {apiBaseUrl}/api/blogposts/{id}
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetBlogPostById([FromRoute] Guid id)
+        {
+            var blogPost = await blogPostRepository.GetByIdAsync(id);
+
+            if ( blogPost is null)
+            {
+                return NotFound();
+            }
+
+            var response = new BlogPostDto
+            {
+                Id = blogPost.Id,
+                Title = blogPost.Title,
+                ShortDescription = blogPost.ShortDescription,
+                Content = blogPost.Content,
+                FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                IsVisible = blogPost.IsVisible,
+                Author = blogPost.Author,
+                UrlHandle = blogPost.UrlHandle,
+                PublishedDate = blogPost.PublishedDate,
+                Categories = blogPost.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle
+                }).ToList()
+            };
+
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [Route("{id:Guid}")]
+        // PUT: {apiBaseUrl}/api/blogposts/{id}
+        public async Task<IActionResult> UpdateBlogPostById([FromRoute] Guid id, UpdateBlogPostRequestDto request)
+        {
+            return NotFound();
         }
     }
 }
