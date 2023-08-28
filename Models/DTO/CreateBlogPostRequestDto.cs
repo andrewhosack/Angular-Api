@@ -1,8 +1,7 @@
-﻿namespace AngularProject.Models.Domain
+﻿namespace AngularProject.Models.DTO
 {
-    public class BlogPost
+    public class CreateBlogPostRequestDto
     {
-        public Guid Id { get; set; }
         public string Title { get; set; }
         public string ShortDescription { get; set; }
         public string Content { get; set; }
@@ -11,7 +10,6 @@
         public DateTime PublishedDate { get; set; }
         public string Author { get; set; }
         public bool IsVisible { get; set; }
-        public ICollection<Category> Categories { get; set; }
-
+        public Guid[] Categories { get; set; }
     }
 }

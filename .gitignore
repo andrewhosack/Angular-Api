@@ -3,3 +3,7 @@
 ################################################################################
 
 /bin/Debug/net6.0
+/.vs
+/obj
+/added.txt
+/AngularProject.csproj.user
